@@ -1,0 +1,32 @@
+{
+  "name": "LegitBOT_V3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "0.1.0-canary.0",
+    "chalk": "^4.1.2",
+    "chess-image-generator": "^1.0.9",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "equations": "^1.3.7",
+    "erela.js": "^2.4.0",
+    "erela.js-spotify": "^1.2.0",
+    "firebase": "^8.10.0",
+    "is-image-url": "^1.1.8",
+    "lodash": "^4.17.21",
+    "minecraft-server-util": "^5.3.1",
+    "ms": "^2.1.2",
+    "mysql": "^2.18.1",
+    "nodeactyl": "^3.2.2",
+    "redis": "^3.1.2",
+    "tesseract.js": "^2.1.4"
+  }
+}
