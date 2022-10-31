@@ -30,26 +30,20 @@ module.exports = class LegitClient extends Client {
         this.nodeactyl = new nodeactyl.NodeactylClient('https://pterodactyl.redelegit.com.br/', process.env.PTERO_API);
 
         this.mysql = mysql.createConnection({
-            host: 'localhost',
-            user: 'me',
-            password: 'secret',
-            database: 'my_db'
+            host: 'database.logichost.com.br',
+            user: 'u789_1ZzNcZwpvk',
+            port: 3306,
+            password: '6gvQ2hHjcIfd@y91!@5V4mDx'
         });
-    }
 
-    async query(data) {
-        return new Promise(res => {
-            this.mysql.connect();
-
-            this.mysql.query(data, (err, result, fields) => {
-
-                this.mysql.end();
-
-                if (err) res(false);
-
-                res(result);
-            })
+        this.mysql2 = mysql.createConnection({
+            host: '191.96.225.102',
+            user: 'admin',
+            port: 7141,
+            password: '8D3PTHaPR7m2LCBc41z9CU06f4hARcRw'
         })
+
+        this.utils = require('./Utils.js')
     }
 
     msToTime(duration) {
