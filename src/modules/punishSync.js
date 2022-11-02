@@ -167,14 +167,21 @@ module.exports = class punishSync {
 
         setInterval(async () => {
 
-            const query = await new this.client.utils().getMysqlInformation(this.client, 'SELECT * FROM s789_punish.global_punishes');
-            console.log(query)
+            let query = await new this.client.utils().getMysqlInformation(this.client, 'SELECT * FROM s789_punish.global_punishes');
+
+            query = query === "noFound" ? [{ id: 'yes' }] : query;
+
             if (!lastPunish.length) {
-                lastPunish = query === "noFound" ? [] : query;
+                lastPunish = query;
 
             } else {
+                console.log(lastPunish, query)
 
                 const punishAdded = query.filter(c => !lastPunish.find(u => u.id === c.id));
+
+                console.log(punishAdded)
+
+                lastPunish = [...lastPunish, ...punishAdded];
 
                 const guild = this.client.guilds.cache.get('564398372161585162');
 
@@ -183,7 +190,7 @@ module.exports = class punishSync {
                     try {
                         punishAdded.map(async p => {
                             const user = await new this.client.utils(this.client).getUserID(this.client, p.playerName);
-                            console.log(user)
+
                             const type = punishes[p.reason];
 
                             const embed = new this.client.embed()
@@ -212,11 +219,14 @@ module.exports = class punishSync {
                     }
                 }
 
-                const punishRemoved = lastPunish.filter(c => !query.find(q => q.id === c.id));
-
-                lastPunish = query;
+                const punishRemoved = lastPunish.filter(c => !query.find(q => q.id === c.id) && c.id !== 'yes');
 
                 punishRemoved.map(async p => {
+
+                    lastPunish.splice(lastPunish.findIndex(c => c.id === p.id), 1);
+
+                    if (query.find(u => u.playerName === p.playerName && punishes[u.reason] === punishes[p.reason])) return console.log('ja tem', p)
+
                     const user = await new this.client.utils().getUserID(this.client, p.playerName);
 
                     const type = punishes[p.reason];
@@ -230,7 +240,7 @@ module.exports = class punishSync {
                         .addField('Data de aplicação:', moment(Date.now() - ms('3h')).format('LLL'), true)
                         .addField('Data de expiração:', p.expires === 0 ? 'Nunca' : moment(Date.now() + ms(type.time)).format('LLL'), true)
                         .setColor('YELLOW')
-                    await this.client.channels.cache.get('787392435004506113').send({ embeds: [embed] });
+                    await this.client.channels.cache.get('748691106346303592').send({ embeds: [embed] });
 
                     if (user && guild.members.cache.get(user)) {
 

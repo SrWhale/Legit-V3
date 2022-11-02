@@ -42,10 +42,10 @@ module.exports = class Utils {
     async getUserID(client, nick) {
         return await new Promise(async (resolve, reject) => {
             const nickFromId = await this.getMysqlInformation2(client, `SELECT * FROM forum.users WHERE name = '${nick}'`)
-
+       
             if (nickFromId === 'noFound') resolve(false);
 
-            client.mysql2.query(`SELECT * FROM forum.users_social_medias WHERE user_id = '25'`, (err, response) => {
+            client.mysql2.query(`SELECT * FROM forum.users_social_medias WHERE user_id = '${nickFromId[0].id}'`, (err, response) => {
                 if (err) return resolve(false);
                 if (!response.length) return resolve(false);
 
