@@ -42,14 +42,14 @@ module.exports = class Utils {
     async getUserID(client, nick) {
         return await new Promise(async (resolve, reject) => {
             const nickFromId = await this.getMysqlInformation2(client, `SELECT * FROM forum.users WHERE name = '${nick}'`)
-       
+
             if (nickFromId === 'noFound') resolve(false);
 
             client.mysql2.query(`SELECT * FROM forum.users_social_medias WHERE user_id = '${nickFromId[0].id}'`, (err, response) => {
                 if (err) return resolve(false);
                 if (!response.length) return resolve(false);
 
-                resolve(`${BigInt(response[0].discord_id)}`.replaceAll('.', ''));
+                resolve(response[0].discord_id ? `${BigInt(response[0].discord_id)}`.replaceAll('.', '') : false);
             })
         })
     }
@@ -57,7 +57,7 @@ module.exports = class Utils {
 
     async validateNickname(client, user) {
         return await new Promise((resolve, reject) => {
-            client.mysql.query(`SELECT * FROM bungeecord.player_data WHERE user = '${user}'`, (err, response) => {
+            client.mysql2.query(`SELECT * FROM commons.accounts WHERE username = '${user}'`, (err, response) => {
                 if (err) return resolve(false);
                 if (!response.length) return resolve(false);
 
@@ -143,15 +143,31 @@ module.exports = class Utils {
 
         return new Promise((resolve, reject) => {
             axios({
-                url: 'https://painel-redelegit.precompany.com.br/api/client/servers/d356da31/command',
+                url: 'https://painel-hero.sysbackup.net/api/client/servers/d99c56b9/command',
                 method: 'POST',
                 data: { command: `despunir ${ID}` },
                 headers: {
-                    'Authorization': 'Bearer ' + API,
+                    'Authorization': 'Bearer ' + process.env.PTERO_API,
                     'Content-Type': 'application/json',
                     'Accept': 'Application/vnd.pterodactyl.v1+json',
                 }
             }).then(res => resolve(true)).catch(async err => await resolve(await this.deletePunicao(client, nick, ID)));
+        })
+    }
+
+    async realizePunicao(client, nick, reason, prova) {
+
+        return new Promise((resolve, reject) => {
+            axios({
+                url: 'https://painel-hero.sysbackup.net/api/client/servers/d99c56b9/command',
+                method: 'POST',
+                data: { command: `punir ${nick} ${reason} ${prova}` },
+                headers: {
+                    'Authorization': 'Bearer ' + process.env.PTERO_API,
+                    'Content-Type': 'application/json',
+                    'Accept': 'Application/vnd.pterodactyl.v1+json',
+                }
+            }).then(res => resolve(true))
         })
     }
 }

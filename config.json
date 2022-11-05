@@ -146,20 +146,6 @@
                 ]
             },
             {
-                "name": "Anti jogo (game)",
-                "duration": "",
-                "required_roles": [
-                    ""
-                ]
-            },
-            {
-                "name": "Falsificar Provas",
-                "duration": "",
-                "required_roles": [
-                    ""
-                ]
-            },
-            {
                 "name": "Invasão de Conta",
                 "duration": "",
                 "required_roles": [
@@ -168,13 +154,6 @@
             },
             {
                 "name": "Tentativa de suborno à equipe",
-                "duration": "",
-                "required_roles": [
-                    ""
-                ]
-            },
-            {
-                "name": "Skin inapropriada",
                 "duration": "",
                 "required_roles": [
                     ""
