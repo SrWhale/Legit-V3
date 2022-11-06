@@ -3,15 +3,9 @@ const { Command } = require('../../client/index');
 const { MessageActionRow, MessageSelectMenu, MessageButton } = require('discord.js');
 
 const format = `HACK Uso de programas ilícitos
-  AUTOCLICKER Uso de autoclicker
-  RECUSARTELAGEM Recusar telagem 
   ASSUMIRUSODEHACK Assumir uso de hack
-  RASTROEMTELAGEM Rastros em telagem
-  DESCONECTAREMTELAGEM Desconectar em telagem
   ABUSODEBUGS Abuso de bugs
   ANTIJOGOGAME Anti jogo (Game)
-  FALSIFICARPROVAS Falsificar provas
-  INVASAODECONTA Invasão de conta
   TENTATIVADESUBORNOAEQUIPE Tentativa de suborno à equipe
   SKININAPROPRIADA Skin inapropriada
   NICKNAMEINADEQUADO Nickname inadequado
@@ -22,7 +16,6 @@ const format = `HACK Uso de programas ilícitos
   CHANTAGEM Chantagem
   INCENTIVARUSODEPROGRAMASILEGAIS Incentivar uso de programas ilegais
   DESOBEDIENCIAASTAFF Desobediência à staff
-  MODIFICARARQUIVOSDURANTEATELAGEM Modificar arquivos durante a telagem
   ANTIJOGOCHAT Anti jogo (chat)
   DISCRIMINACAO Discriminação
   DIVULGACAOGRAVE Divulgação grave
@@ -58,7 +51,7 @@ module.exports = class ReportCommand extends Command {
                 type: 3,
                 description: 'Motivo do banimento',
                 required: true,
-                choices: [...client.config.mutes.motivos.map(m => ({ name: m.name, value: m.name })), ...client.config.bans.motivos.map(m => ({ name: m.name, value: m.name }))]
+                choices: [...Object.keys(format).map(m => ({ name: m, value: m }))]
             }, {
                 name: 'prova',
                 type: 3,
