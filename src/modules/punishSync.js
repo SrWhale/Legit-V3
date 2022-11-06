@@ -201,12 +201,14 @@ module.exports = class punishSync {
                             await this.client.channels.cache.get('748691106346303592').send({ embeds: [embed] });
 
                             if (user && guild.members.cache.get(user)) {
-
                                 if (!type) return console.log(`Punição ${p.reason} não existe.`);
 
-                                guild.members.cache.get(user).roles.add(type.type === 'MUTE' ? [...this.client.config.mutes.cargosToAdd] : [...this.client.config.bans.cargosToAdd]);
+                                const member = guild.members.cache.get(user)
 
-                                guild.members.cache.get(user).send({ embeds: [new this.client.embed().setDescription(`Você acaba de ser punido em nosso servidor e sua punição foi vinculada.`)] });
+                                member.roles.add(type.type === 'MUTE' ? [...this.client.config.mutes.cargosToAdd] : [...this.client.config.bans.cargosToAdd]);
+
+                                member.send({ embeds: [new this.client.embed().setDescription(`Você acaba de ser punido em nosso servidor e sua punição foi vinculada.`)] });
+
                             }
 
                         })
@@ -220,8 +222,6 @@ module.exports = class punishSync {
                 punishRemoved.map(async p => {
 
                     lastPunish.splice(lastPunish.findIndex(c => c.id === p.id), 1);
-
-                    if (query.find(u => u.playerName === p.playerName && punishes[u.reason] === punishes[p.reason])) return console.log('ja tem', p)
 
                     const user = await new this.client.utils().getUserID(this.client, p.playerName);
 
@@ -238,11 +238,15 @@ module.exports = class punishSync {
                         .setColor('YELLOW')
                     await this.client.channels.cache.get('748691106346303592').send({ embeds: [embed] });
 
+                    if (query.find(u => u.playerName === p.playerName && punishes[u.reason] === punishes[p.reason])) return console.log('ja tem', p)
+
                     if (user && guild.members.cache.get(user)) {
 
-                        guild.members.cache.get(user).roles.remove(type.type === 'MUTE' ? [...this.client.config.mutes.cargosToAdd] : [...this.client.config.bans.cargosToAdd]);
+                        const member = guild.members.cache.get(user);
 
-                        guild.members.cache.get(user).send({ embeds: [new this.client.embed().setDescription(`Você acaba de ser despunido em nosso servidor e por isso também foi em nosso Discord.`)] });
+                        member.roles.remove(type.type === 'MUTE' ? [...this.client.config.mutes.cargosToAdd] : [...this.client.config.bans.cargosToAdd]);
+
+                        member.send({ embeds: [new this.client.embed().setDescription(`Você acaba de ser despunido em nosso servidor e por isso também foi em nosso Discord.`)] });
                     }
                 });
             }

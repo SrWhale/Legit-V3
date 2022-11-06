@@ -49,7 +49,7 @@ module.exports = class Utils {
                 if (err) return resolve(false);
                 if (!response.length) return resolve(false);
 
-                resolve(response[0].discord_id ? `${BigInt(response[0].discord_id)}`.replaceAll('.', '') : false);
+                resolve(response[0].discord_id ? response[0].discord_id : false);
             })
         })
     }
