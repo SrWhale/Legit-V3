@@ -99,13 +99,19 @@ module.exports = class ReportCommand extends Command {
                 new MessageButton()
                     .setStyle('DANGER')
                     .setCustomId('negar')
-                    .setLabel(' ')
+                    .setLabel(' '),
+                new MessageButton()
+                    .setStyle('PRIMARY')
+                    .setCustomId('analisar')
+                    .setLabel('Analisar')
             ]);
 
         message.reply({
             content: 'Usuário denunciado com sucesso.',
             ephemeral: true
         });
+
+        let analisador;
 
         this.client.channels.cache.get('875820206235217941').send({ embeds: [embed], components: [row] }).then(msg => {
 
@@ -121,6 +127,12 @@ module.exports = class ReportCommand extends Command {
 
                     switch (button.customId) {
                         case 'aceitar':
+                            if (!analisador) return message.reply({ content: 'Inicie a análise da denúncia antes de aceitar!', ephemeral: true });
+
+                            if (button.user.id !== analisador) return message.reply({ content: 'Você não pode aceitar uma denúncia que não iniciou a análise!', ephemeral: true });
+
+                            this.client.analisando.delete(button.user.id);
+
                             embed.setAuthor('Denúncia aceita.', this.client.user.displayAvatarURL());
                             embed.setColor('GREEN')
                             embed.setFooter('Aceita por: ' + button.user.username, this.client.user.displayAvatarURL())
@@ -138,12 +150,33 @@ module.exports = class ReportCommand extends Command {
                             break;
 
                         case 'negar':
+                            if (!analisador) return message.reply({ content: 'Inicie a análise da denúncia antes de negar!', ephemeral: true });
+
+                            if (button.user.id !== analisador) return message.reply({ content: 'Você não pode negar uma denúncia que não iniciou a análise!', ephemeral: true });
+
+                            this.client.analisando.delete(button.user.id);
+
                             embed.setAuthor('Denúncia negada.', this.client.user.displayAvatarURL());
                             embed.setFooter('Negada por: ' + button.user.username, this.client.user.displayAvatarURL())
                             embed.setColor("RED")
                             msg.edit({ embeds: [embed], components: [] });
                             button.deferUpdate()
 
+                            break;
+
+                        case 'analisar':
+                            analisador = button.user.id;
+
+                            if (this.client.analisando.get(button.user.id)) return button.reply({ content: 'Você já está analisando uma denúncia!', ephemeral: true });
+
+                            this.client.analisando.set(button.user.id, true)
+
+                            embed.setAuthor('Em análise por ' + button.user.tag, this.client.user.displayAvatarURL());
+                            embed.setColor('YELLOW')
+
+                            msg.edit({ embeds: [embed], components: [row.spliceComponents(2, 1)] });
+
+                            button.reply({ content: 'Você iniciou a análise da denúncia.', ephemeral: true });
                             break;
                     }
                 })

@@ -36,6 +36,8 @@ module.exports = class LegitClient extends Client {
             password: '6gvQ2hHjcIfd@y91!@5V4mDx'
         });
 
+        this.analisando = new Collection();
+
         this.mysql2 = mysql.createConnection({
             host: '191.96.225.102',
             user: 'admin',
