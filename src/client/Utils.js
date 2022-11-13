@@ -27,7 +27,7 @@ module.exports = class Utils {
     async getUser(client, user) {
 
         return await new Promise(async (resolve, reject) => {
-            const nickFromId = await this.getMysqlInformation2(this.client, `SELECT * FROM forum.users WHERE name = '${user}'`)
+            const nickFromId = await this.getMysqlInformation(this.client, `SELECT * FROM forum.users WHERE name = '${user}'`)
             if (nickFromId === 'noFound') return resolve(false);
 
             client.mysql.query(`SELECT * FROM forum.users_social_medias WHERE id = '${nickFromId}'`, (err, response) => {
@@ -41,11 +41,11 @@ module.exports = class Utils {
 
     async getUserID(client, nick) {
         return await new Promise(async (resolve, reject) => {
-            const nickFromId = await this.getMysqlInformation2(client, `SELECT * FROM forum.users WHERE name = '${nick}'`)
+            const nickFromId = await this.getMysqlInformation(client, `SELECT * FROM forum.users WHERE name = '${nick}'`)
 
             if (nickFromId === 'noFound') resolve(false);
 
-            client.mysql2.query(`SELECT * FROM forum.users_social_medias WHERE user_id = '${nickFromId[0].id}'`, (err, response) => {
+            client.mysql.query(`SELECT * FROM forum.users_social_medias WHERE user_id = '${nickFromId[0].id}'`, (err, response) => {
                 if (err) return resolve(false);
                 if (!response.length) return resolve(false);
 
@@ -57,7 +57,7 @@ module.exports = class Utils {
 
     async validateNickname(client, user) {
         return await new Promise((resolve, reject) => {
-            client.mysql2.query(`SELECT * FROM commons.accounts WHERE username = '${user}'`, (err, response) => {
+            client.mysql3.query(`SELECT * FROM s858_commons.accounts WHERE username = '${user}'`, (err, response) => {
                 if (err) return resolve(false);
                 if (!response.length) return resolve(false);
 
@@ -94,6 +94,20 @@ module.exports = class Utils {
             })
         })
     };
+
+    getMysqlInformation3(client, data) {
+        return new Promise((resolve, reject) => {
+            client.mysql3.query(data, (err, response) => {
+                if (err) {
+                    console.log(err);
+                    resolve('noFound');
+                    return;
+                };
+                if (!response.length) return resolve('noFound');
+                resolve(response)
+            })
+        })
+    }
 
     msToTime(duration) {
 

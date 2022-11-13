@@ -141,7 +141,7 @@ module.exports = class ReportCommand extends Command {
                             new this.client.utils().realizePunicao(this.client, user, format[motivo.toLowerCase()], prova)
                                 .then(() => {
                                     setTimeout(() => {
-                                        new this.client.utils().getMysqlInformation2(this.client, `UPDATE punishs.global_punishes SET stafferName = '${button.member.displayName}' WHERE playerName = '${user}' AND proof = '${prova}' AND reason = '${format[motivo]}'`)
+                                        new this.client.utils().getMysqlInformation2(this.client, `UPDATE s858_punishs.global_punishes SET stafferName = '${button.member.displayName}' WHERE playerName = '${user}' AND proof = '${prova}' AND reason = '${format[motivo]}'`)
                                             .then(console.log)
                                     }, 5000);
                                 })

@@ -14,7 +14,7 @@ module.exports = class staffTime {
         setInterval(async () => {
             await this.client.guilds.cache.get('716379843620765837').members.fetch();
 
-            util.queryFull('191.96.225.102', 25565)
+            util.queryFull('131.196.199.98', 13066)
                 .then(res => {
 
                     const players = res.players.list || [];

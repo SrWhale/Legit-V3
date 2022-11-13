@@ -23,13 +23,13 @@ module.exports = class MySQLSync {
                     const newPlayers = players.filter(p => !this.players.includes(p));
 
                     newPlayers.forEach(async player => {
-                        const userData = await Util.getMysqlInformation2(this.client, `SELECT * FROM galax.accounts WHERE username = '${player}'`);
+                        const userData = await Util.getMysqlInformation(this.client, `SELECT * FROM galax.accounts WHERE username = '${player}'`);
 
                         if (!userData) return;
 
-                        const metadata = await Util.getMysqlInformation2(this.client, `SELECT * FROM galax.metadata WHERE name = '${player}'`);
+                        const metadata = await Util.getMysqlInformation(this.client, `SELECT * FROM galax.metadata WHERE name = '${player}'`);
 
-                        const vip = await Util.getMysqlInformation2(this.client, `SELECT * FROM galax.group_infos WHERE user = '${userData[0].unique_id}'`);
+                        const vip = await Util.getMysqlInformation(this.client, `SELECT * FROM galax.group_infos WHERE user = '${userData[0].unique_id}'`);
 
                         const newUserData = {
                             uuid: userData.unique_id,

@@ -159,15 +159,20 @@ module.exports = class punishSync {
     }
 
     async start() {
+        // this.checkEndedPunish();
         this.logPunish();
     };
+
+    async checkEndedPunish() {
+        const members = this.client.guilds.cache.get('564398372161585162').members.cache.filter(m => m.roles.has('oi'))
+    }
 
     async logPunish() {
         let lastPunish = [];
 
         setInterval(async () => {
 
-            let query = await new this.client.utils().getMysqlInformation2(this.client, 'SELECT * FROM punishs.global_punishes');
+            let query = await new this.client.utils().getMysqlInformation2(this.client, 'SELECT * FROM s858_punishs.global_punishes');
 
             query = query === "noFound" ? [{ id: 'yes' }] : query;
 

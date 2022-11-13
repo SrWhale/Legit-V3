@@ -30,19 +30,26 @@ module.exports = class LegitClient extends Client {
         this.nodeactyl = new nodeactyl.NodeactylClient('https://pterodactyl.redelegit.com.br/', process.env.PTERO_API);
 
         this.mysql = mysql.createConnection({
-            host: 'database.logichost.com.br',
-            user: 'u789_1ZzNcZwpvk',
+            host: '135.148.145.194',
+            user: 'u858_taQeX8qcXW',
             port: 3306,
-            password: '6gvQ2hHjcIfd@y91!@5V4mDx'
+            password: 'PjMgld3WjY4gjS..AoQcZ6=^'
         });
 
         this.analisando = new Collection();
 
         this.mysql2 = mysql.createConnection({
-            host: '191.96.225.102',
-            user: 'admin',
-            port: 7141,
-            password: '8D3PTHaPR7m2LCBc41z9CU06f4hARcRw'
+            host: 'database.logichost.com.br',
+            user: 'u858_taQeX8qcXW',
+            port: 3306,
+            password: 'PjMgld3WjY4gjS..AoQcZ6=^'
+        });
+
+        this.mysql3 = mysql.createConnection({
+            host: 'database.logichost.com.br',
+            user: 'u858_pOkz6BfJQ6',
+            port: 3306,
+            password: 'YP@nzbHlZ7n8^a^70uBU+6Kf'
         })
 
         this.utils = require('./Utils.js')
