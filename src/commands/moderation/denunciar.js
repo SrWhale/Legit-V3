@@ -127,9 +127,9 @@ module.exports = class ReportCommand extends Command {
 
                     switch (button.customId) {
                         case 'aceitar':
-                            if (!analisador) return message.reply({ content: 'Inicie a análise da denúncia antes de aceitar!', ephemeral: true });
+                            if (!analisador) return button.reply({ content: 'Inicie a análise da denúncia antes de aceitar!', ephemeral: true });
 
-                            if (button.user.id !== analisador) return message.reply({ content: 'Você não pode aceitar uma denúncia que não iniciou a análise!', ephemeral: true });
+                            if (button.user.id !== analisador) return button.reply({ content: 'Você não pode aceitar uma denúncia que não iniciou a análise!', ephemeral: true });
 
                             this.client.analisando.delete(button.user.id);
 
@@ -150,9 +150,9 @@ module.exports = class ReportCommand extends Command {
                             break;
 
                         case 'negar':
-                            if (!analisador) return message.reply({ content: 'Inicie a análise da denúncia antes de negar!', ephemeral: true });
+                            if (!analisador) return button.reply({ content: 'Inicie a análise da denúncia antes de negar!', ephemeral: true });
 
-                            if (button.user.id !== analisador) return message.reply({ content: 'Você não pode negar uma denúncia que não iniciou a análise!', ephemeral: true });
+                            if (button.user.id !== analisador) return button.reply({ content: 'Você não pode negar uma denúncia que não iniciou a análise!', ephemeral: true });
 
                             this.client.analisando.delete(button.user.id);
 
