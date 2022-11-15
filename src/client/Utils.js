@@ -173,7 +173,7 @@ module.exports = class Utils {
 
         return new Promise((resolve, reject) => {
             axios({
-                url: 'https://painel-hero.sysbackup.net/api/client/servers/d99c56b9/command',
+                url: 'https://pterodactyl.logichost.com.br/api/client/servers/feda50ad/command',
                 method: 'POST',
                 data: { command: `punir ${nick} ${reason} ${prova}` },
                 headers: {
