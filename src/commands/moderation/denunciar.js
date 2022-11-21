@@ -40,7 +40,7 @@ module.exports = class ReportCommand extends Command {
             name: 'denunciar',
             description: 'reporte um usuário',
             permissions: ['send_messages'],
-            required_roles: ['ajudante'],
+            required_roles: ['estagiário'],
             options: [{
                 name: 'user',
                 type: 3,
