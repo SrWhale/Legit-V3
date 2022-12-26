@@ -27,7 +27,7 @@ module.exports = class LegitClient extends Client {
 
         this.bans = new Collection();
 
-        this.nodeactyl = new nodeactyl.NodeactylClient('https://pterodactyl.redelegit.com.br/', process.env.PTERO_API);
+        this.nodeactyl = new nodeactyl.NodeactylClient('https://painel.redelegit.com.br/', process.env.PTERO_API);
 
         this.mysql = mysql.createConnection({
             host: process.env.mysql1_host,
