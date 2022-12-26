@@ -34,7 +34,7 @@ module.exports = class Command {
         if (this.required_roles.length) {
 
             const roles = {
-                'estagiário': '1041826494181290064',
+                'estagiário': '1041753469805142136',
                 'ajudante': '876897405063270420',
                 'moderador': '876896736201801759',
                 'administrador': '876896342818062406',
@@ -60,6 +60,7 @@ module.exports = class Command {
     checkRoles(interaction, roleName) {
         if (interaction) {
             const roles = {
+                'estagiário': '1041753469805142136',
                 'ajudante': '876897405063270420',
                 'moderador': '876896736201801759',
                 'administrador': '876896342818062406',
