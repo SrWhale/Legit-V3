@@ -87,6 +87,11 @@ module.exports = class MuteCommand extends Command {
                 ephemeral: true
             });
 
+            this.client.database.ref(`RedeLegit/Punishs/${message.guild.members.cache.get(message.user.id).displayName}`).push({
+                type: 'MUTE',
+                plataform: 'DISCORD'
+            });
+
             const logsEmbed = new this.client.embed()
                 .setAuthor('Rede Legit - Usuário mutado', this.client.user.displayAvatarURL())
                 .setFooter('Rede Legit - Usuário mutado', this.client.user.displayAvatarURL())

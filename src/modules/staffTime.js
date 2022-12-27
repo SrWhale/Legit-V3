@@ -14,9 +14,10 @@ module.exports = class staffTime {
         setInterval(async () => {
             await this.client.guilds.cache.get('716379843620765837').members.fetch();
 
-            util.queryFull('131.196.199.98', 13066)
+            util.queryFull('178.255.219.48', 25565)
                 .then(res => {
 
+                    console.log("SERVIDOR ONLINE!")
                     const players = res.players.list || [];
 
                     const staffs = this.client.guilds.cache.get('716379843620765837').members.cache.filter(m => players.includes(m.nickname || m.user.username) && m.roles.cache.first());
@@ -30,6 +31,8 @@ module.exports = class staffTime {
                             rolePos: s.roles.hoist?.rawPosition || s.roles.cache.first().rawPosition,
                             nickname: s.nickname || s.user.username
                         });
+
+                        this.client.database.ref(`RedeLegit/lastSee/${s.nickname}`).set(Date.now())
                     });
 
                     this.client.staffTime.forEach(s => {

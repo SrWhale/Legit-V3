@@ -205,6 +205,11 @@ module.exports = class punishSync {
 
                             await this.client.channels.cache.get('748691106346303592').send({ embeds: [embed] });
 
+                            this.client.database.ref(`RedeLegit/Punishs/${p.stafferName}`).push({
+                                type: type.type,
+                                plataform: 'SERVIDOR'
+                            })
+
                             if (user && guild.members.cache.get(user)) {
                                 if (!type) return console.log(`Punição ${p.reason} não existe.`);
 

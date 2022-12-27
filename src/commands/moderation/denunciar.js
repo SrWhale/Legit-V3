@@ -51,7 +51,7 @@ module.exports = class ReportCommand extends Command {
                 type: 3,
                 description: 'Motivo do banimento',
                 required: true,
-                choices: [...Object.keys(format).map(m => ({ name: m, value: m }))]
+                choices: [...Object.keys(format).slice(0, 25).map(m => ({ name: m, value: m }))]
             }, {
                 name: 'prova',
                 type: 3,

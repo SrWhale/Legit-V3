@@ -88,6 +88,11 @@ module.exports = class BanCommand extends Command {
                 ephemeral: true
             });
 
+            this.client.database.ref(`RedeLegit/Punishs/${message.guild.members.cache.get(message.user.id).displayName}`).push({
+                type: 'BAN',
+                plataform: 'DISCORD'
+            })
+
             const logsEmbed = new this.client.embed()
                 .setAuthor('Rede Legit - Usuário banido', this.client.user.displayAvatarURL())
                 .setFooter('Rede Legit - Usuário banido', this.client.user.displayAvatarURL())

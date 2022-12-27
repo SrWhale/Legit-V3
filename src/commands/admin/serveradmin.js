@@ -21,7 +21,7 @@ module.exports = class serverCommand extends Command {
                 type: 3,
                 required: false,
                 description: 'Servidor(es) a ser afetado',
-                choices: ['all', 'lobby', 'auth', 'skywars', 'bedwars'].map(server => ({ name: server, value: server }))
+                choices: ['all', 'lobby', 'auth', 'skywars', 'bedwars'].map(a => ({ name: a, value: a }))
             }]
         })
     }
