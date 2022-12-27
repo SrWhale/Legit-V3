@@ -19,7 +19,7 @@ module.exports = class MuteCommand extends Command {
                 type: 3,
                 description: 'Motivo do mute',
                 required: true,
-                choices: client.config.mutes.motivos.map(motivo => ({ name: motivo.name, value: motivo.name }))
+                choices: client.config.mutes.motivos.slice(0, 25).map(motivo => ({ name: motivo.name, value: motivo.name }))
             }, {
                 name: 'prova',
                 type: 3,

@@ -39,7 +39,7 @@ module.exports = class staffTime {
 
                         this.client.database.ref(`RedeLegit/stafftime/${s.nickname}`).transaction(now => (now || 0) + (Date.now() - s.start));
                     })
-                })
+                }).catch(() => console.log('SERVIDOR OFFLINE!'))
         }, 10000)
     }
 }
