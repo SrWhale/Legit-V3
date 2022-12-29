@@ -172,7 +172,7 @@ module.exports = class punishSync {
 
         setInterval(async () => {
 
-            let query = await new this.client.utils().getMysqlInformation2(this.client, 'SELECT * FROM s858_punishs.global_punishes');
+            let query = await new this.client.utils().getMysqlInformation2(this.client, 'SELECT * FROM punish.global_punishes');
 
             query = query === "noFound" ? [{ id: 'yes' }] : query;
 

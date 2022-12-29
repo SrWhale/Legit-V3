@@ -18,14 +18,14 @@ module.exports = class messageEvent {
 
             message.channel.send({ ...obj });
         };
-        
-        if(this.client.config.antipalavras.blacklist.find(palavra => message.content.split(" ").includes(palavra)) && !this.client.config.antipalavras.whitelist.find(palavra => message.content.includes(palavra)) && !this.client.config.antipalavras.bypassRoles.some(r => message.member.roles.cache.has(r))) {
+
+        if (this.client.config.antipalavras.blacklist.find(palavra => message.content?.split(" ").includes(palavra)) && !this.client.config.antipalavras.whitelist.find(palavra => message.content.includes(palavra)) && !this.client.config.antipalavras.bypassRoles.some(r => message.member.roles.cache.has(r))) {
             await message.member.send({
-                content: `Ops! Você não pode falar \`${this.client.config.antipalavras.blacklist.filter(palavra => message.content.split(" ").includes(palavra)?.join(" | "))}\`no chat!`
+                content: `Ops! Você não pode falar \`${this.client.config.antipalavras.blacklist.filter(palavra => message.content?.split(" ").includes(palavra)).join(" | ")}\` no chat!`
             }).catch(err => message.reply({
                 content: "Hey, há palavras nessa mensagem que não podem ser ditas!"
             }))
-            
+
             await message.delete();
         }
     }
