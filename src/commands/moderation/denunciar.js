@@ -70,6 +70,7 @@ module.exports = class ReportCommand extends Command {
         const prova = message.options.getString('prova');
 
         if (!format[motivo.toLowerCase()]) return message.reply({ content: 'Ocorreu um erro ao reportar com este motivo. Reporte ao pauloheroo.', ephemeral: true })
+
         if (!prova.startsWith('https')) return message.reply({
             content: 'A prova deve ser um link!',
         });
@@ -138,12 +139,11 @@ module.exports = class ReportCommand extends Command {
                             embed.setFooter('Aceita por: ' + button.user.username, this.client.user.displayAvatarURL())
                             msg.edit({ embeds: [embed], components: [] });
 
-                            new this.client.utils().realizePunicao(this.client, user, format[motivo.toLowerCase()], prova)
+                            await this.client.nodeactyl.sendServerCommand('aa080fba', `punir ${user} ${format[motivo.toLowerCase()]} ${prova}`)
                                 .then(() => {
                                     setTimeout(() => {
-                                        new this.client.utils().getMysqlInformation2(this.client, `UPDATE s858_punishs.global_punishes SET stafferName = '${button.member.displayName}' WHERE playerName = '${user}' AND proof = '${prova}' AND reason = '${format[motivo]}'`)
-                                            .then(console.log)
-                                    }, 5000);
+                                        new this.client.utils().getMysqlInformation2(this.client, `UPDATE punish.global_punishes SET stafferName = '${button.member.displayName}' WHERE playerName = '${user}' AND proof = '${prova}' AND reason = '${format[motivo.toLowerCase()]}'`)
+                                    }, 2000);
                                 })
 
                             button.deferUpdate()

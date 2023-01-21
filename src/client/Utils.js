@@ -57,7 +57,7 @@ module.exports = class Utils {
 
     async validateNickname(client, user) {
         return await new Promise((resolve, reject) => {
-            client.mysql3.query(`SELECT * FROM s858_commons.accounts WHERE username = '${user}'`, (err, response) => {
+            client.mysql3.query(`SELECT * FROM commons.accounts WHERE username = '${user}'`, (err, response) => {
                 if (err) return resolve(false);
                 if (!response.length) return resolve(false);
 
@@ -117,12 +117,7 @@ module.exports = class Utils {
             hours = Math.floor((duration / (1000 * 60 * 60)) % 24),
             days = Math.floor((duration / (1000 * 60 * 60 * 24) % 24))
 
-        hours = hours < 10 ? '0' + hours : hours;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        seconds = seconds < 10 ? '0' + seconds : seconds;
-        days = days < 10 ? '0' + days : days;
-
-        return days.toString().replace('0-', '') + " d, " + hours.toString().replace('0-', '') + ' h, ' + minutes.toString().replace('0-', '') + ' m e ' + seconds.toString().replace('0-', '') + ' s';
+        return days.toString().replace('0-', '') + "d, " + hours.toString().replace('0-', '') + 'h, ' + minutes.toString().replace('0-', '') + 'm e ' + seconds.toString().replace('0-', '') + 's';
     }
 
 

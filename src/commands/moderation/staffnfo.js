@@ -31,14 +31,17 @@ module.exports = class staffinfoCommand extends Command {
             setTimeout(async () => {
                 const staffTime = await this.client.database.ref(`RedeLegit/stafftime/${staff.displayName}`).once('value').then(res => res.val() || 0);
 
-                const punishes = await this.client.database.ref(`RedeLegit/Punishs/${staff.displayName}`).once('value').then(res => res.val() || []);
+                const punishes = await this.client.database.ref(`RedeLegit/Punishs/${staff.displayName}`).once('value').then(res => Object.values(res.val() || {}));
 
                 const lastSee = await this.client.database.ref(`RedeLegit/lastSee/${staff.displayName}`).once('value').then(res => res.val() || 0);
+
+                const utils = new this.client.utils();
+
                 const staffEmbed = new this.client.embed()
                     .setAuthor(`Perfil de ${staff.displayName}`, this.client.user.displayAvatarURL())
                     .setThumbnail(`https://mc-heads.net/avatar/${staff.displayName}`)
                     .addField('Cargo:', staff.roles.highest.toString(), true)
-                    .addField('Tempo online', `\`${this.client.msToTime(staffTime)}\` `, true)
+                    .addField('Tempo online', `\`${utils.msToTime(staffTime)}\` `, true)
                     .addField('Visto por último', `<t:${Math.floor(lastSee / 1000)}:F>`, true)
                     .addField(`Mutes`, `Servidor: \`${punishes.filter(p => p.type === 'MUTE' && p.plataform === 'SERVIDOR').length}\`\nDiscord: \`${punishes.filter(p => p.type === 'MUTE' && p.plataform === 'DISCORD').length}\``, true)
                     .addField(`Bans`, `Servidor: \`${punishes.filter(p => p.type === 'BAN' && p.plataform === 'SERVIDOR').length}\`\nDiscord: \`${punishes.filter(p => p.type === 'BAN' && p.plataform === 'DISCORD').length}\``, true)

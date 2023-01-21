@@ -203,7 +203,7 @@ module.exports = class punishSync {
                                 .addField('Data de aplicação:', moment(Date.now() - ms('3h')).format('LLL'), true)
                                 .addField('Data de expiração:', p.expires === 0 ? 'Nunca' : moment((Date.now() - ms('3h')) + ms(type.time)).format('LLL'), true);
 
-                            await this.client.channels.cache.get('748691106346303592').send({ embeds: [embed] });
+                            await this.client.channels.cache.get('1046585321397166180').send({ embeds: [embed] });
 
                             this.client.database.ref(`RedeLegit/Punishs/${p.stafferName}`).push({
                                 type: type.type,
@@ -246,7 +246,7 @@ module.exports = class punishSync {
                         .addField('Data de aplicação:', moment(Date.now() - ms('3h')).format('LLL'), true)
                         .addField('Data de expiração:', p.expires === 0 ? 'Nunca' : moment(Date.now() + ms(type.time)).format('LLL'), true)
                         .setColor('YELLOW')
-                    await this.client.channels.cache.get('748691106346303592').send({ embeds: [embed] });
+                    await this.client.channels.cache.get('1046585321397166180').send({ embeds: [embed] });
 
                     if (query.find(u => u.playerName === p.playerName && punishes[u.reason] === punishes[p.reason])) return console.log('ja tem', p)
 
